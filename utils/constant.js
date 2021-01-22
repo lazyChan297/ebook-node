@@ -18,5 +18,8 @@ module.exports = {
     UPLOAD_PATH,
     MINE_TYPE_EPUB: 'application/epub+zip',
     UPLOAD_URL,
-    OLD_UPLOAD_URL
+    OLD_UPLOAD_URL,
+    dbHost: env === 'dev' ? 'localhost' : '139.186.82.39',
+    dbUser: env === 'dev' ? 'root' : 'root',
+    dbPwd: env === 'dev' ? '12345678' : '72Lsy.'
 }
