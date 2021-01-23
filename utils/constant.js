@@ -21,5 +21,5 @@ module.exports = {
     OLD_UPLOAD_URL,
     dbHost: env === 'dev' ? 'localhost' : '139.186.82.39',
     dbUser: env === 'dev' ? 'root' : 'root',
-    dbPwd: env === 'dev' ? '12345678' : '72Lsy.'
+    dbPwd: env === 'dev' ? '12345678' : '72Lsy1314.'
 }
