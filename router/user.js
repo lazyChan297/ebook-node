@@ -48,7 +48,11 @@ router.get('/info', function(req, res, next) {
       }
     })
   }
-  
+})
+
+// test
+router.get('/test', function(req, res, next) {
+  new Result('success').success(res)
 })
 
 module.exports = router
