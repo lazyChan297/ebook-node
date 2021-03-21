@@ -5,8 +5,8 @@ const cors = require('cors')
 const app = express()
 const fs = require('fs')
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({limit:'2mb', extended: true }))
+app.use(bodyParser.json({limit: '2mb'}))
 app.use(cors())
 // // 中间件,相应结束后不会再调用中间件
 // const myLogger = function(res, req, next) {
@@ -32,7 +32,7 @@ app.use(cors())
 // app.use(errorHandle)
 
 // 将全部的路由通过router来管理
-app.use('/', router)
+app.use('/api', router)
 
 const server = app.listen(18082, function() {
     const { address, port } = server.address()

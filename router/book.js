@@ -38,7 +38,6 @@ router.post(
             req.body.username = decode.username
         }
         const book = new Book(null, req.body)
-        console.log('book..', book)
         bookService.insertBook(book).then(() => {
             new Result('添加电子书成功').success(res)
         }).catch(error => {

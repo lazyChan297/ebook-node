@@ -108,6 +108,24 @@ class Book {
                         this.author = creator || creatorFileAs || 'unknown'
                         this.publisher = publisher || 'unknown'
                         this.rootFile = epub.rootFile
+                        const handleGetImage = (err, file, mimetype) => {
+                            if (err) {
+                                // 读取封面图片失败
+                                reject(err)
+                            } else {
+                                // 读取封面图片后缀名
+                                const suffix = mimetype.split('/')[1]
+                                // 封面图片路径
+                                const coverPath = `${UPLOAD_PATH}/img/${this.fileName}.${suffix}`
+                                // 生成封面图片URL
+                                const coverUrl = `${UPLOAD_URL}/img/${this.fileName}.${suffix}`
+                                // 将图片写入本地磁盘 /Users/chenyingqi/upload/admin-upload-ebook/img/文件名.后缀
+                                fs.writeFileSync(coverPath, file, 'binary')
+                                this.coverPath = `/img/${this.fileName}.${suffix}`
+                                this.cover = coverUrl
+                                resolve(this)
+                            }
+                        }
                         try {
                             // 将资源文件解压
                             this.unzip()
@@ -116,29 +134,13 @@ class Book {
                                 this.contents = chapters
                                 this.contentsTree = chaptersTree
                                 epub.getImage(cover, handleGetImage)
+                            }, (err) => {
+                                // 目录解析失败
+                                reject(err)
                             })
-                            const handleGetImage = (err, file, mimetype) => {
-                                if (err) {
-                                    // 读取封面图片失败
-                                    reject(err)
-                                } else {
-                                    // 读取封面图片后缀名
-                                    const suffix = mimetype.split('/')[1]
-                                    // 封面图片路径
-                                    const coverPath = `${UPLOAD_PATH}/img/${this.fileName}.${suffix}`
-                                    // 生成封面图片URL
-                                    const coverUrl = `${UPLOAD_URL}/img/${this.fileName}.${suffix}`
-                                    // 将图片写入本地磁盘 /Users/chenyingqi/upload/admin-upload-ebook/img/文件名.后缀
-                                    fs.writeFileSync(coverPath, file, 'binary')
-                                    this.coverPath = `/img/${this.fileName}.${suffix}`
-                                    this.cover = coverUrl
-                                    resolve(this)
-                                }
-                            }
                         } catch(e) {
                             reject(e)
                         }
-                        
                     }
                 }
             })
@@ -222,7 +224,6 @@ class Book {
                         reject(err)
                     } else {
                         const navMap = json.ncx.navMap
-
                         if (navMap.navPoint && navMap.navPoint.length > 0) {
                             navMap.navPoint = findParent(navMap.navPoint)
                             // flatten复制一个新的navPoint,不会对原有的影响

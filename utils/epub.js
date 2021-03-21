@@ -181,7 +181,6 @@ class EPub extends EventEmitter {
 
                 if (!result.rootfiles || !result.rootfiles.rootfile) {
                     this.emit("error", new Error("No rootfiles found"));
-                    console.dir(result);
                     return;
                 }
 
@@ -730,7 +729,7 @@ class EPub extends EventEmitter {
 
             }).bind(this));
         } else {
-            callback(new Error("File not found"));
+            callback(new Error("Chapter File not found"));
         }
     };
 
@@ -746,11 +745,9 @@ class EPub extends EventEmitter {
      **/
     getImage(id, callback) {
         if (this.manifest[id]) {
-
             if ((this.manifest[id]['media-type'] || "").toLowerCase().trim().substr(0, 6)  !=  "image/") {
                 return callback(new Error("Invalid mime type for image"));
             }
-
             this.getFile(id, callback);
         } else {
             const coverId = Object.keys(this.manifest).find(key => {
@@ -759,7 +756,7 @@ class EPub extends EventEmitter {
             if (coverId) {
                 this.getFile(coverId, callback)
             } else {
-                callback(new Error("File not found"));
+                callback(new Error("错误:找不到图书封面"));
             }
         }
     };

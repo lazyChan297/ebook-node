@@ -38,7 +38,6 @@ router.use((err, req, res, next) => {
             error: status,
             errMsg: message
         }).expired(res.status(status))
-        // res.status(status) 手动修改http的status
     } else {
         // 常规接口错误
         const msg = (err && err.message) || '系统错误'

@@ -2,9 +2,9 @@ const { env } = require('./env')
 // 指定文件上传路径
 const UPLOAD_PATH = env === 'dev' ? '/Users/chenyingqi/upload/admin-upload-ebook' : '/root/upload/admin-upload/ebook'
 
-const UPLOAD_URL = env === 'dev' ? 'https://book.youbaobao.xyz/admin-upload-ebook' : 'https://www.youbaobao.xyz/admin-upload-ebook'
+const UPLOAD_URL = env === 'dev' ? 'http://book.72lsy.vip:8089/admin-upload-ebook' : 'http://book.72lsy.vip:8089/admin-upload-ebook'
 
-const OLD_UPLOAD_URL = env === 'dev' ? 'https://book.youbaobao.xyz/book/res/img' : 'https://www.youbaobao.xyz/book/res/img'
+const OLD_UPLOAD_URL = env === 'dev' ? 'http://book.72lsy.vip:8089/book/res/img' : 'http://book.72lsy.vip:8089/book/res/img'
 
 
 module.exports = {

@@ -2,7 +2,6 @@ const mysql = require('mysql')
 const config = require('./config')
 const { debug } = require('../utils/constant')
 const { isObject } = require('../utils/index')
-const { reject, result } = require('lodash')
 
 function connect() {
     return mysql.createConnection({
@@ -16,15 +15,15 @@ function connect() {
 
 function querySql(sql) {
     const conn = connect()
-    debug && console.log(sql) // debug模式打开时打印sql语句
+    // debug && console.log(sql) // debug模式打开时打印sql语句
     return new Promise((resolve, reject) => {
         try {
             conn.query(sql, (err, results) => {
                 if (err) {
-                    debug && console.log('查询失败，原因：' + JSON.stringify(err))
+                    // debug && console.log('查询失败，原因：' + JSON.stringify(err))
                     reject(err)
                 } else {
-                    debug && console.log('查询成功，原因：' + JSON.stringify(results))
+                    // debug && console.log('查询成功，原因：' + JSON.stringify(results))
                     resolve(results)
                 } 
             }) // 执行查询语句
@@ -69,7 +68,7 @@ function insert(model, tableName) {
                 const keysString = keys.join(',')
                 const valuesString = values.join(',')
                 sql = `${sql}${keysString} ) VALUES (${valuesString})`
-                debug && console.log('sql', sql)
+                // debug && console.log('sql', sql)
                 const conn = connect()
                 try {
                     conn.query(sql, (err, result) => {
@@ -105,7 +104,7 @@ function update(model, tableName, where) {
             if (entry.length > 0) {
                 let sql = `UPDATE \`${tableName}\` SET`
                 sql = `${sql} ${entry.join(',')} ${where}`
-                debug && console.log(sql)
+                // debug && console.log(sql)
                 const conn = connect()
                 try {
                     conn.query(sql, (err,result) => {

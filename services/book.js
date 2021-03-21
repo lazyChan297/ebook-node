@@ -88,13 +88,12 @@ function getBook(fileName) {
         
     })
 }
-
+// 上传图书
 function updateBook(book) {
     return new Promise(async(resolve, reject) => {
         try {
             if (book instanceof Book) {
                 const result = await getBook(book.fileName)
-                console.log('result', result)
                 if (result) {
                     const model = book.toDb()
                     if (result.updateType === '0') {
