@@ -1,11 +1,10 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = require('./router')
-const compress = require('compression')
 const cors = require('cors')
 const app = express()
 const fs = require('fs')
-app.use(compress())
+
 app.use(bodyParser.urlencoded({limit:'2mb', extended: true }))
 app.use(bodyParser.json({limit: '2mb'}))
 app.use(cors())
